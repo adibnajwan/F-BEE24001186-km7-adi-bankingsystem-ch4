@@ -6,7 +6,6 @@ const transactionController = require('./controllers/transactionController');
 
 app.use(express.json());
 
-// Routes
 app.use('/api/v1/users', userController);
 app.use('/api/v1/accounts', accountController);
 app.use('/api/v1/transactions', transactionController);
