@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
-const userRoutes = require('./routes/users');
-const accountRoutes = require('./routes/accounts');
-const transactionRoutes = require('./routes/transactions');
+
+const userRoutes = require('./src/routes/users');
+const accountRoutes = require('./src/routes/accounts');
+const transactionRoutes = require('./src/routes/transactions');
 
 app.use(express.json());
 

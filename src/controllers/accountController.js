@@ -1,27 +1,25 @@
-const express = require("express");
-const router = express.Router();
 const accountService = require("../services/accountService");
-const { validateAccount } = require("../validations/accountValidation");
+const { validationResult } = require('express-validator');
 
-router.post("/", validateAccount, async (req, res) => {
+const createAccount = async (req, res) => {
   try {
     const account = await accountService.createAccount(req.body);
     res.status(201).json(account);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-});
+};
 
-router.get("/", async (req, res) => {
+const getAllAccounts = async (req, res) => {
   try {
     const accounts = await accountService.getAllAccounts();
     res.json(accounts);
   } catch (error) {
     res.status(500).json({ error: "Error retrieving accounts" });
   }
-});
+};
 
-router.get("/:accountId", async (req, res) => {
+const getAccountById = async (req, res) => {
   try {
     const account = await accountService.getAccountById(req.params.accountId);
     if (!account) {
@@ -31,6 +29,10 @@ router.get("/:accountId", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Error retrieving account" });
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  createAccount,
+  getAllAccounts,
+  getAccountById,
+};
