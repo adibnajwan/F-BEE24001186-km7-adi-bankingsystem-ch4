@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1730278201713" clover="3.2.0">
-  <project timestamp="1730278201713" name="All files">
+<coverage generated="1730278827615" clover="3.2.0">
+  <project timestamp="1730278827616" name="All files">
     <metrics statements="285" coveredstatements="151" conditionals="5" coveredconditionals="2" methods="20" coveredmethods="2" elements="310" coveredelements="155" complexity="0" loc="285" ncloc="285" packages="5" files="12" classes="12"/>
     <package name="F-BEE24001186-km7-adi-bankingsystem-ch4">
       <metrics statements="21" coveredstatements="17" conditionals="1" coveredconditionals="0" methods="0" coveredmethods="0"/>
