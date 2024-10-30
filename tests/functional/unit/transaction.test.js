@@ -105,3 +105,39 @@ describe("Transaction Controller Tests", () => {
     expect(res.json).toHaveBeenCalledWith({ error: "Transaction not found" });
   });
 });
+
+describe("Transaction Service Tests", () => {
+  it("should create a transaction", async () => {
+    const mockData = { fromAccountId: 1, toAccountId: 2, amount: 100.0 };
+    const mockTransaction = { id: 1, ...mockData };
+
+    transactionService.createTransaction = jest.fn().mockResolvedValue(mockTransaction);
+
+    const result = await transactionService.createTransaction(mockData);
+
+    expect(result).toEqual(mockTransaction);
+  });
+
+  it("should get all transactions", async () => {
+    const mockTransactions = [
+      { id: 1, fromAccountId: 1, toAccountId: 2, amount: 100.0 },
+      { id: 2, fromAccountId: 2, toAccountId: 3, amount: 150.0 },
+    ];
+
+    transactionService.getAllTransactions = jest.fn().mockResolvedValue(mockTransactions);
+
+    const result = await transactionService.getAllTransactions();
+
+    expect(result).toEqual(mockTransactions);
+  });
+
+  it("should get a transaction by ID", async () => {
+    const mockTransaction = { id: 1, fromAccountId: 1, toAccountId: 2, amount: 100.0 };
+
+    transactionService.getTransactionById = jest.fn().mockResolvedValue(mockTransaction);
+
+    const result = await transactionService.getTransactionById(1);
+
+    expect(result).toEqual(mockTransaction);
+  });
+});
