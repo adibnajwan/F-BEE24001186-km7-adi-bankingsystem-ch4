@@ -11,7 +11,7 @@ describe('User API', () => {
   it('should create a new user', async () => {
     const res = await request(app)
       .post('/api/v1/users')
-      .send({ name: 'Adib', email: 'adibnajwan2@example.com', bio: 'Backend Engineer' });
+      .send({ name: 'Adib', email: 'adibnajwan@example.com', bio: 'Backend Engineer' });
   
     console.log(res.body); 
     expect(res.statusCode).toEqual(201);
@@ -24,5 +24,13 @@ describe('User API', () => {
 
     expect(res.statusCode).toEqual(200);
     expect(res.body).toBeInstanceOf(Array);
+  });
+
+    it('should retrieve a user by ID', async () => {
+    const userId = 1;
+    const res = await request(app).get(`/api/v1/users/${userId}`);
+
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toHaveProperty('id', userId);
   });
 });
