@@ -6,6 +6,7 @@ const createAccount = async (req, res) => {
     const account = await accountService.createAccount(req.body);
     res.status(201).json(account);
   } catch (error) {
+    console.error("Error creating account:", error); 
     res.status(400).json({ error: error.message });
   }
 };
