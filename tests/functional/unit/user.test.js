@@ -17,4 +17,11 @@ describe('User API', () => {
     expect(res.body).toHaveProperty('id');
     expect(res.body.name).toBe('John Doe');
   });
+
+  it('should retrieve all users', async () => {
+    const res = await request(app).get('/api/v1/users');
+
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toBeInstanceOf(Array);
+  });
 });
