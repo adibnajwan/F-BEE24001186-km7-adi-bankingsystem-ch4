@@ -1,11 +1,18 @@
-const request = require('supertest');
-const app = require('../index'); 
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const transactionController = require('../../../src/controllers/transactionController');
+const transactionService = require('../../../src/services/transactionService');
+const { validateTransaction } = require('../../../src/validations/transactionValidation');
+const { validationResult } = require('express-validator');
 
-describe('Transaction API', () => {
-  afterAll(async () => {
-    await prisma.$disconnect();
-  });
+const mockResponse = () => {
+  const res = {};
+  res.status = jest.fn().mockReturnThis();
+  res.json = jest.fn().mockReturnThis();
+  return res;
+};
 
+const mockRequest = (body, params = {}) => ({
+  body,
+  params,
 });
+
+module.exports = { mockResponse, mockRequest };
