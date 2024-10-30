@@ -16,4 +16,12 @@ describe('User API', () => {
     expect(res.statusCode).toEqual(201);
     expect(res.body).toHaveProperty('id');
   });
+
+  it('should retrieve all accounts', async () => {
+    const res = await request(app).get('/api/v1/accounts');
+
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toBeInstanceOf(Array);
+});
+
 });
