@@ -22,7 +22,6 @@ const getAccountById = async (accountId) => {
   });
 };
 
-// Fungsi untuk mendapatkan akun berdasarkan ID pengguna
 const getAccountsByUserId = async (userId) => {
   return await prisma.account.findMany({
     where: { userId: parseInt(userId) },
@@ -33,5 +32,5 @@ module.exports = {
   createAccount,
   getAllAccounts,
   getAccountById,
-  getAccountsByUserId, // Pastikan untuk mengeksport fungsi ini
+  getAccountsByUserId,
 };
