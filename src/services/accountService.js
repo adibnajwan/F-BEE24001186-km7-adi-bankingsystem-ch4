@@ -1,3 +1,4 @@
+// src/services/accountService.js
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
@@ -21,4 +22,16 @@ const getAccountById = async (accountId) => {
   });
 };
 
-module.exports = { createAccount, getAllAccounts, getAccountById };
+// Fungsi untuk mendapatkan akun berdasarkan ID pengguna
+const getAccountsByUserId = async (userId) => {
+  return await prisma.account.findMany({
+    where: { userId: parseInt(userId) },
+  });
+};
+
+module.exports = {
+  createAccount,
+  getAllAccounts,
+  getAccountById,
+  getAccountsByUserId, // Pastikan untuk mengeksport fungsi ini
+};

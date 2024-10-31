@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const authController = require('../controllers/authController');
+const authController = require('../controllers/authController'); // Pastikan authController diimpor
 
-router.post('/register', authController.register); 
-router.post('/login', authController.login); 
+router.post('/login', authController.login); // Gunakan authController untuk login
 
 module.exports = router;

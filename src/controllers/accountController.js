@@ -1,3 +1,4 @@
+// src/controllers/accountController.js
 const accountService = require("../services/accountService");
 const { validationResult } = require('express-validator');
 
@@ -32,8 +33,20 @@ const getAccountById = async (req, res) => {
   }
 };
 
+// Tambahkan fungsi ini untuk mendapatkan akun berdasarkan pengguna
+const getAccountByUser = async (req, res) => {
+  try {
+    const userId = req.user.id; // Ambil ID pengguna dari JWT
+    const accounts = await accountService.getAccountsByUserId(userId); // Sesuaikan dengan service
+    res.json(accounts);
+  } catch (error) {
+    res.status(500).json({ error: "Error retrieving accounts" });
+  }
+};
+
 module.exports = {
   createAccount,
   getAllAccounts,
   getAccountById,
+  getAccountByUser, // Pastikan ini diekspor
 };
