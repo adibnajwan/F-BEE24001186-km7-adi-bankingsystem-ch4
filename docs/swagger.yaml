@@ -4,48 +4,80 @@ info:
   description: API documentation for the banking system project built with Express.js and Prisma.
   version: 1.0.0
 servers:
-- url: https://virtserver.swaggerhub.com/AdibNajwan/BankAccount/1.0.0
-  description: SwaggerHub API Auto Mocking
-- url: https://your-api-url.com/api/v1
-  description: Production server
-- url: http://localhost:3000/api/v1
-  description: Local development server
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/AdibNajwan/BankAccount/1.0.0
+  - url: https://your-api-url.com/api/v1
+    description: Production server
+  - url: http://localhost:3000/api/v1
+    description: Local development server
+
 paths:
   /auth/login:
     post:
       summary: User login
       description: Authenticate a user and return a JWT token.
       requestBody:
+        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/LoginRequest'
-        required: true
       responses:
-        "200":
+        '200':
           description: Successfully authenticated
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoginResponse'
-        "401":
+        '401':
           description: Invalid credentials
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-        "400":
+        '400':
           description: Bad request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+
   /users:
+    post:
+      summary: Create a new user
+      description: Register a new user in the system.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Validation errors or bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
     get:
       summary: Get all users
       description: Retrieve a list of all users.
       responses:
-        "200":
+        '200':
           description: A list of users
           content:
             application/json:
@@ -53,79 +85,74 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/User'
-        "500":
+        '500':
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-    post:
-      summary: Create a new user
-      description: Register a new user in the system.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateUserRequest'
-        required: true
-      responses:
-        "201":
-          description: User created successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        "400":
-          description: Validation errors or bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        "500":
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+
   /users/{userId}:
     get:
       summary: Get user by ID
       description: Retrieve details of a specific user by their ID.
       parameters:
-      - name: userId
-        in: path
-        description: The ID of the user to retrieve
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-          example: 1
+        - name: userId
+          in: path
+          required: true
+          description: The ID of the user to retrieve
+          schema:
+            type: integer
+            example: 1
       responses:
-        "200":
+        '200':
           description: User details
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-        "404":
+        '404':
           description: User not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-        "500":
+        '500':
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+
   /accounts:
+    post:
+      summary: Create a new bank account
+      description: Create a new bank account for a user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccountRequest'
+      responses:
+        '201':
+          description: Account created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '400':
+          description: Validation errors or bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
     get:
       summary: Get all bank accounts
       description: Retrieve a list of all bank accounts.
       responses:
-        "200":
+        '200':
           description: A list of bank accounts
           content:
             application/json:
@@ -133,73 +160,53 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Account'
-        "500":
+        '500':
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-    post:
-      summary: Create a new bank account
-      description: Create a new bank account for a user.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateAccountRequest'
-        required: true
-      responses:
-        "201":
-          description: Account created successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Account'
-        "400":
-          description: Validation errors or bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+
   /accounts/{accountId}:
     get:
       summary: Get account by ID
       description: Retrieve details of a specific bank account by its ID.
       parameters:
-      - name: accountId
-        in: path
-        description: The ID of the account to retrieve
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-          example: 1001
+        - name: accountId
+          in: path
+          required: true
+          description: The ID of the account to retrieve
+          schema:
+            type: integer
+            example: 1001
       responses:
-        "200":
+        '200':
           description: Account details
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Account'
-        "404":
+        '404':
           description: Account not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-        "500":
+        '500':
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+
   /accounts/user:
     get:
       summary: Get accounts by authenticated user
       description: Retrieve all bank accounts associated with the authenticated user.
+      security:
+        - bearerAuth: []
       responses:
-        "200":
+        '200':
           description: List of user's bank accounts
           content:
             application/json:
@@ -207,26 +214,48 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Account'
-        "401":
+        '401':
           description: Unauthorized - Token missing or invalid
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-        "500":
+        '500':
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-      security:
-      - bearerAuth: []
+
   /transactions:
+    post:
+      summary: Create a new transaction
+      description: Initiate a new transaction between two accounts.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTransactionRequest'
+      responses:
+        '201':
+          description: Transaction created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '400':
+          description: Validation errors or bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
     get:
       summary: Get all transactions
       description: Retrieve a list of all transactions.
       responses:
-        "200":
+        '200':
           description: A list of transactions
           content:
             application/json:
@@ -234,74 +263,59 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Transaction'
-        "500":
+        '500':
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-    post:
-      summary: Create a new transaction
-      description: Initiate a new transaction between two accounts.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateTransactionRequest'
-        required: true
-      responses:
-        "201":
-          description: Transaction created successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Transaction'
-        "400":
-          description: Validation errors or bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+
   /transactions/{transactionId}:
     get:
       summary: Get transaction by ID
       description: Retrieve details of a specific transaction by its ID.
       parameters:
-      - name: transactionId
-        in: path
-        description: The ID of the transaction to retrieve
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-          example: 5001
+        - name: transactionId
+          in: path
+          required: true
+          description: The ID of the transaction to retrieve
+          schema:
+            type: integer
+            example: 5001
       responses:
-        "200":
+        '200':
           description: Transaction details
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Transaction'
-        "404":
+        '404':
           description: Transaction not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-        "500":
+        '500':
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
   schemas:
+    # Request Schemas
     LoginRequest:
-      required:
-      - email
-      - password
       type: object
+      required:
+        - email
+        - password
       properties:
         email:
           type: string
@@ -311,11 +325,12 @@ components:
           type: string
           format: password
           example: strongpassword123
+
     CreateUserRequest:
-      required:
-      - email
-      - name
       type: object
+      required:
+        - name
+        - email
       properties:
         name:
           type: string
@@ -326,31 +341,33 @@ components:
           example: johndoe@example.com
         bio:
           type: string
-          example: Software developer with 5 years of experience.
+          example: "Software developer with 5 years of experience."
+
     CreateAccountRequest:
-      required:
-      - accountNumber
-      - balance
-      - userId
       type: object
+      required:
+        - userId
+        - accountNumber
+        - balance
       properties:
         userId:
           type: integer
           example: 1
         accountNumber:
           type: string
-          example: ACC1234567890
+          example: "ACC1234567890"
         balance:
-          minimum: 0
           type: number
           format: float
-          example: 1000.5
+          minimum: 0
+          example: 1000.50
+
     CreateTransactionRequest:
-      required:
-      - amount
-      - fromAccountId
-      - toAccountId
       type: object
+      required:
+        - fromAccountId
+        - toAccountId
+        - amount
       properties:
         fromAccountId:
           type: integer
@@ -359,16 +376,19 @@ components:
           type: integer
           example: 1002
         amount:
-          minimum: 0.01
           type: number
           format: float
+          minimum: 0.01
           example: 150.75
+
+    # Response Schemas
     LoginResponse:
       type: object
       properties:
         token:
           type: string
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+
     User:
       type: object
       properties:
@@ -384,6 +404,7 @@ components:
           example: johndoe@example.com
         profile:
           $ref: '#/components/schemas/Profile'
+
     Profile:
       type: object
       properties:
@@ -392,7 +413,8 @@ components:
           example: 101
         bio:
           type: string
-          example: Software developer with 5 years of experience.
+          example: "Software developer with 5 years of experience."
+
     Account:
       type: object
       properties:
@@ -401,18 +423,19 @@ components:
           example: 1001
         accountNumber:
           type: string
-          example: ACC1234567890
+          example: "ACC1234567890"
         balance:
           type: number
           format: float
-          example: 1000.5
+          example: 1000.50
         userId:
           type: integer
           example: 1
         createdAt:
           type: string
           format: date-time
-          example: 2024-07-12T10:00:00Z
+          example: "2024-07-12T10:00:00Z"
+
     Transaction:
       type: object
       properties:
@@ -432,11 +455,12 @@ components:
         createdAt:
           type: string
           format: date-time
-          example: 2024-07-15T14:30:00Z
+          example: "2024-07-15T14:30:00Z"
         fromAccount:
           $ref: '#/components/schemas/AccountSummary'
         toAccount:
           $ref: '#/components/schemas/AccountSummary'
+
     AccountSummary:
       type: object
       properties:
@@ -445,15 +469,11 @@ components:
           example: 1001
         accountNumber:
           type: string
-          example: ACC1234567890
+          example: "ACC1234567890"
+
     ErrorResponse:
       type: object
       properties:
         error:
           type: string
-          example: Invalid credentials
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+          example: "Invalid credentials"
