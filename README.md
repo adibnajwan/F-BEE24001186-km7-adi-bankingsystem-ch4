@@ -22,5 +22,18 @@
       ```
    2. Jalankan program menggunakan perintah:  
       ```bash
-      node index.js
+      node run start
+      ```
+6. **API Documentation:**  
+   1. Install dependencies dengan menjalankan perintah berikut di terminal:  
+      ```bash
+      npm install swagger-ui-express yamljs
+      ```
+   2. Jalankan program menggunakan perintah:  
+      ```bash
+      node run start
+      ```
+   3. Akses URL berikut pada browser anda  
+      ```browser
+      http://localhost:3000/api-docs
       ```
