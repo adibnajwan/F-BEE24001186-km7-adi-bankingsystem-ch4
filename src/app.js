@@ -1,22 +1,23 @@
 // src/app.js
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
+const express = require("express");
+const morgan = require("morgan");
+const cors = require("cors");
 const app = express();
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("../docs/swagger.yaml");
 
 app.use(cors());
 app.use(express.json());
 
-// Rute yang diperlukan
-const authRoutes = require('./routes/auths'); // Jalur yang benar untuk auth
-const userRoutes = require('./routes/users');
-const accountRoutes = require('./routes/accounts');
-const transactionRoutes = require('./routes/transactions');
+const authRoutes = require("./routes/auths");
+const userRoutes = require("./routes/users");
+const accountRoutes = require("./routes/accounts");
+const transactionRoutes = require("./routes/transactions");
 
-// Gunakan rute
-app.use('/api/v1/auth', authRoutes); // Memastikan rute untuk login ada di sini
-app.use('/api/v1/users', userRoutes);
-app.use('/api/v1/accounts', accountRoutes);
-app.use('/api/v1/transactions', transactionRoutes);
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/accounts", accountRoutes);
+app.use("/api/v1/transactions", transactionRoutes);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 module.exports = app;
