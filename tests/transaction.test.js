@@ -1,6 +1,6 @@
-const transactionController = require('../../../src/controllers/transactionController');
-const transactionService = require('../../../src/services/transactionService');
-const { validateTransaction } = require('../../../src/validations/transactionValidation');
+const transactionController = require('../src/controllers/transactionController');
+const transactionService = require('../src/services/transactionService');
+const { validateTransaction } = require('../src/validations/transactionValidation');
 const { validationResult } = require('express-validator');
 
 const mockResponse = () => {
