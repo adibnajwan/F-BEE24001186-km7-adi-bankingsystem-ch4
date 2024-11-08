@@ -1,5 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const imagekit = require('../libs/imagekit'); 
 
 module.exports = {
     uploadImage: async (req, res) => {
@@ -9,13 +10,18 @@ module.exports = {
             }
 
             const { title, description } = req.body;
-            const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+            const fileBase64 = req.file.buffer.toString('base64');
+
+            const uploadedImage = await imagekit.upload({
+                file: fileBase64,
+                fileName: req.file.originalname,
+            });
 
             const newImage = await prisma.image.create({
                 data: {
                     title: title,
                     description: description,
-                    url: imageUrl
+                    url: uploadedImage.url  
                 }
             });
 
