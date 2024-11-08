@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
 const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = require("./docs/swagger.yaml");
+const swaggerDocument = require("../docs/swagger.yaml");
 
 app.use(cors());
 app.use(express.json());
