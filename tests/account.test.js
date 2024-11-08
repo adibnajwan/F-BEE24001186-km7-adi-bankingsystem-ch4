@@ -1,7 +1,14 @@
 const request = require('supertest');
-const app = require('../../../index'); 
+const app = require('../index'); 
 
 describe('User API', () => {
+  beforeAll(async () => {
+    await request(app).post('/api/v1/users').send({
+      name: 'Adib',
+      email: 'adibnajwan@example.com'
+    });
+  });
+
   it('should retrieve all users', async () => {
     const res = await request(app).get('/api/v1/users');
     expect(res.statusCode).toEqual(200);
@@ -12,8 +19,8 @@ describe('User API', () => {
     const res = await request(app)
       .post('/api/v1/accounts')
       .send({
-        userId: 1, 
-        accountNumber: '123456789', 
+        userId: 45, 
+        accountNumber: '123456789',
         balance: 1000.00 
       });
   
@@ -21,12 +28,10 @@ describe('User API', () => {
     expect(res.statusCode).toEqual(201);
     expect(res.body).toHaveProperty('id');
   });
-  
+
   it('should retrieve all accounts', async () => {
     const res = await request(app).get('/api/v1/accounts');
-
     expect(res.statusCode).toEqual(200);
     expect(res.body).toBeInstanceOf(Array);
-});
-
+  });
 });

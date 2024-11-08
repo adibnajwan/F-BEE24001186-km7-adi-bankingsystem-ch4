@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.76% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>29/52</span>
+                <span class='fraction'>30/50</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.76% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>29/52</span>
+                <span class='fraction'>30/50</span>
             </div>
         
             
@@ -113,9 +113,14 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -125,17 +130,9 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -149,7 +146,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -167,27 +163,26 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/controllers/accountController.js
-const accountService = require("../services/accountService");
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const accountService = require("../services/accountService");
 const { validationResult } = require('express-validator');
 &nbsp;
 const createAccount = async (req, res) =&gt; {
   try {
-    const account = await accountService.createAccount(req.body);
-    res.status(201).json(account);
-  } <span class="branch-0 cbranch-no" title="branch not covered" >catch (error) {</span>
-<span class="cstat-no" title="statement not covered" >    console.error("Error creating account:", error); </span>
-<span class="cstat-no" title="statement not covered" >    res.status(400).json({ error: error.message });</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
+    const account = await accountService.createAccount(req.body)<span class="branch-0 cbranch-no" title="branch not covered" >;</span>
+<span class="cstat-no" title="statement not covered" >    res.status(201).json(account);</span>
+  } catch (error) {
+    console.error("Error creating account:", error); 
+    res.status(400).json({ error: error.message });
+  }
 };
 &nbsp;
 const getAllAccounts = async (req, res) =&gt; {
   try {
-    const accounts = await accountService.getAllAccounts();
-    res.json(accounts);
-  } <span class="branch-0 cbranch-no" title="branch not covered" >catch (error) {</span>
-<span class="cstat-no" title="statement not covered" >    res.status(500).json({ error: "Error retrieving accounts" });</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
+    const accounts = await accountService.getAllAccounts()<span class="branch-0 cbranch-no" title="branch not covered" >;</span>
+<span class="cstat-no" title="statement not covered" >    res.json(accounts);</span>
+  } catch (error) {
+    res.status(500).json({ error: "Error retrieving accounts" });
+  }
 };
 &nbsp;
 const getAccountById = <span class="fstat-no" title="function not covered" >async (req, res) =&gt; {</span>
@@ -202,11 +197,10 @@ const getAccountById = <span class="fstat-no" title="function not covered" >asyn
 <span class="cstat-no" title="statement not covered" >  }</span>
 <span class="cstat-no" title="statement not covered" >};</span>
 &nbsp;
-// Tambahkan fungsi ini untuk mendapatkan akun berdasarkan pengguna
 const getAccountByUser = <span class="fstat-no" title="function not covered" >async (req, res) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  try {</span>
-<span class="cstat-no" title="statement not covered" >    const userId = req.user.id; // Ambil ID pengguna dari JWT</span>
-<span class="cstat-no" title="statement not covered" >    const accounts = await accountService.getAccountsByUserId(userId); // Sesuaikan dengan service</span>
+<span class="cstat-no" title="statement not covered" >    const userId = req.user.id;</span>
+<span class="cstat-no" title="statement not covered" >    const accounts = await accountService.getAccountsByUserId(userId); </span>
 <span class="cstat-no" title="statement not covered" >    res.json(accounts);</span>
 <span class="cstat-no" title="statement not covered" >  } catch (error) {</span>
 <span class="cstat-no" title="statement not covered" >    res.status(500).json({ error: "Error retrieving accounts" });</span>
@@ -217,7 +211,7 @@ module.exports = {
   createAccount,
   getAllAccounts,
   getAccountById,
-  getAccountByUser, // Pastikan ini diekspor
+  getAccountByUser,
 };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -226,7 +220,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-10-31T08:15:01.308Z
+                at 2024-11-08T07:41:16.163Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

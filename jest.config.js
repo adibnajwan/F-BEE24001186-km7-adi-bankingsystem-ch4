@@ -196,3 +196,10 @@ const config = {
 };
 
 module.exports = config;
+
+module.exports = {
+  transform: {
+    '^.+\\.js$': 'babel-jest', // Menyediakan transformasi untuk JavaScript
+    '^.+\\.yaml$': 'jest-transform-yaml', // Menyediakan transformasi untuk YAML
+  },
+};
