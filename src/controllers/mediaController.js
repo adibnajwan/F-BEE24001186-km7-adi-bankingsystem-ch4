@@ -53,5 +53,36 @@ module.exports = {
             console.error(error);
             return res.status(500).json({ status: false, message: "Failed to update image" });
         }
+    },
+
+    uploadImage: async (req, res) => {
+        try {
+            const { title, description } = req.body;
+            const imageFile = req.file; 
+
+            const uploadedImage = await imagekit.upload({
+                file: imageFile.buffer, 
+                fileName: title,
+                folder: "/banking-system/images" 
+            });
+
+            const newImage = await prisma.image.create({
+                data: {
+                    title,
+                    description,
+                    url: uploadedImage.url, 
+                    imagekitId: uploadedImage.fileId 
+                }
+            });
+
+            return res.status(200).json({
+                status: true,
+                message: "Image uploaded successfully",
+                data: newImage
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ status: false, message: "Failed to upload image" });
+        }
     }
 };

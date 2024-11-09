@@ -12,7 +12,7 @@ const authRoutes = require("./routes/auths");
 const userRoutes = require("./routes/users");
 const accountRoutes = require("./routes/accounts");
 const transactionRoutes = require("./routes/transactions");
-const mediaRoutes = require("./routes/media");
+const mediaRoutes = require("./routes/media"); 
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);

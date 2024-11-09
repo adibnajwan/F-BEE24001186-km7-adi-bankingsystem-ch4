@@ -8,10 +8,9 @@ const swaggerDocument = YAML.load('./docs/swagger.yaml');
 const userRoutes = require('./src/routes/users');
 const accountRoutes = require('./src/routes/accounts');
 const transactionRoutes = require('./src/routes/transactions');
-const mediaRoutes = require('./src/routes/media'); 
+const mediaRoutes = require('./src/routes/media');  
 
 app.use(express.json());
-
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/api/v1/users', userRoutes);

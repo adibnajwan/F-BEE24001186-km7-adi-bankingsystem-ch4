@@ -1,17 +1,15 @@
-// src/routes/media.js
 const express = require('express');
 const router = express.Router();
-const { imageUpload } = require('../libs/multer');
-const { uploadImage, getImages, getImageById, deleteImage, updateImage } = require('../controllers/mediaController');
+const mediaController = require('../controllers/mediaController'); 
 
-router.post('/images', imageUpload.single('image'), uploadImage);
+router.post('/upload', mediaController.uploadImage);
 
-router.get('/images', getImages);
+router.get('/', mediaController.getImages);
 
-router.get('/images/:id', getImageById);
+router.get('/:id', mediaController.getImageById);
 
-router.delete('/images/:id', deleteImage);
+router.put('/:id', mediaController.updateImage);
 
-router.put('/images/:id', updateImage);
+router.delete('/:id', mediaController.deleteImage);
 
 module.exports = router;
