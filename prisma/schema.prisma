@@ -48,3 +48,13 @@ model Transaction {
 
   @@map("transactions") 
 }
+
+model Image {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  url         String
+  createdAt   DateTime @default(now())
+
+  @@map("image") 
+}
