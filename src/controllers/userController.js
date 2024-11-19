@@ -44,8 +44,33 @@ const getUserById = async (req, res) => {
   }
 };
 
+const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await userService.getUserByEmail(email);
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    const token = crypto.randomBytes(32).toString('hex');
+    const expiry = new Date(Date.now() + 3600000); 
+
+    await userService.updateUser(user.id, {
+      resetPasswordToken: token,
+      resetTokenExpiry: expiry,
+    });
+
+    const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
+    await sendEmail(user.email, 'Reset Your Password', { resetLink, userName: user.name });
+
+    res.status(200).json({ message: 'Password reset link sent to email.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
 module.exports = {
   postUser,
   getAllUsers,
   getUserById,
+  forgotPassword
 };
