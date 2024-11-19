@@ -89,26 +89,18 @@ const resetPassword = async (req, res) => {
   try {
     const { token, newPassword } = req.body;
 
-    console.log("Received token:", token);
-    console.log("Received newPassword:", newPassword);
-
     const user = await userService.getUserByToken(token);
     if (!user || user.resetTokenExpiry < new Date()) {
-      console.log("Invalid or expired token.");
       return res.status(400).json({ error: 'Invalid or expired token.' });
     }
 
     const hashedPassword = await hashPassword(newPassword);
 
-    console.log("Hashed password:", hashedPassword);
-
-    const updatedUser = await userService.updateUser(user.id, {
+    await userService.updateUser(user.id, {
       password: hashedPassword,
-      resetPasswordToken: null,
-      resetTokenExpiry: null,
+      resetPasswordToken: null,   
+      resetTokenExpiry: null,    
     });
-
-    console.log("Updated user:", updatedUser);
 
     res.status(200).json({ message: 'Password reset successfully.' });
   } catch (error) {
