@@ -8,13 +8,16 @@ datasource db {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  name     String
-  email    String   @unique
-  accounts Account[]
-  profile  Profile?
+  id               Int       @id @default(autoincrement())
+  name             String
+  email            String    @unique
+  password         String    // Tambahkan atribut untuk menyimpan password
+  resetPasswordToken String? // Token untuk reset password
+  resetTokenExpiry DateTime? // Waktu kedaluwarsa token
+  accounts         Account[]
+  profile          Profile?
 
-  @@map("users") 
+  @@map("users")
 }
 
 model Account {
