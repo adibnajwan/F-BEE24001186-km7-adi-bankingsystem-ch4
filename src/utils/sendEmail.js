@@ -1,5 +1,7 @@
 require('dotenv').config(); 
 const nodemailer = require('nodemailer');
+const ejs = require('ejs');
+const path = require('path');
 
 async function sendEmail() {
     try {
@@ -11,12 +13,18 @@ async function sendEmail() {
                 pass: '7efe675fc587fe'       
             }
         });
-     
+
+        const templatePath = path.join(__dirname, '../../template/forgot-password.ejs');
+        const htmlContent = await ejs.renderFile(templatePath, {
+            userName: 'Adib Najwan',
+            resetLink: 'https://example.com/reset-password?token=123456'
+        });
+
         const mailOptions = {
             from: '"Muhammad Adib Najwan" <adibnajwan@gmail.com>', 
             to: 'adibnajwan@students.amikom.ac.id', 
-            subject: 'Testing Send Email', 
-            text: 'Saya suka saya suka' 
+            subject: 'Testing Forgot Password', 
+            html: htmlContent 
         };
 
         const info = await transporter.sendMail(mailOptions);
