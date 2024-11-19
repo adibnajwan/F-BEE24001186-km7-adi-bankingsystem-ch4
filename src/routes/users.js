@@ -6,5 +6,10 @@ const { validateUser, validateUserInput } = require('../validations/userValidati
 router.post('/', validateUser, validateUserInput, userController.postUser);
 router.get('/', userController.getAllUsers);
 router.get('/:userId', userController.getUserById);
+router.post('/forgot-password', forgotPassword);
+router.post('/reset-password', resetPassword);
 
 module.exports = router;
+
+const express = require('express');
+const { forgotPassword, resetPassword } = require('../controllers/userControllers');
