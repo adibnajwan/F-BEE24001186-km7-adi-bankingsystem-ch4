@@ -6,6 +6,7 @@ const createUser = async (data) => {
     data: {
       name: data.name,
       email: data.email,
+      password: data.password,
       profile: {
         create: { bio: data.bio },
       },
@@ -26,4 +27,16 @@ const getUserById = async (userId) => {
   });
 };
 
-module.exports = { createUser, getAllUsers, getUserById };
+const getUserByEmail = async (email) => {
+  return await prisma.user.findUnique({ where: { email } });
+};
+
+const updateUser = async (id, data) => {
+  return await prisma.user.update({ where: { id }, data });
+};
+
+const getUserByToken = async (token) => {
+  return await prisma.user.findFirst({ where: { resetPasswordToken: token } });
+};
+
+module.exports = { createUser, getAllUsers, getUserById, getUserByEmail, getUserByToken, updateUser };
