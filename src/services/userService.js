@@ -6,6 +6,7 @@ const createUser = async (data) => {
     data: {
       name: data.name,
       email: data.email,
+      password: data.password,
       profile: {
         create: { bio: data.bio },
       },
