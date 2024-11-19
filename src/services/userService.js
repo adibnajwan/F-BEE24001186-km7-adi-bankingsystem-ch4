@@ -35,4 +35,8 @@ const updateUser = async (id, data) => {
   return await prisma.user.update({ where: { id }, data });
 };
 
-module.exports = { createUser, getAllUsers, getUserById, getUserByEmail, updateUser };
+const getUserByToken = async (token) => {
+  return await prisma.user.findFirst({ where: { resetPasswordToken: token } });
+};
+
+module.exports = { createUser, getAllUsers, getUserById, getUserByEmail, getUserByToken, updateUser };
