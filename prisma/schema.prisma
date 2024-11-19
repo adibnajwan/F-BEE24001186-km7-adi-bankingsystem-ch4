@@ -11,9 +11,9 @@ model User {
   id               Int       @id @default(autoincrement())
   name             String
   email            String    @unique
-  password         String    // Tambahkan atribut untuk menyimpan password
-  resetPasswordToken String? // Token untuk reset password
-  resetTokenExpiry DateTime? // Waktu kedaluwarsa token
+  password         String
+  resetPasswordToken String?
+  resetTokenExpiry DateTime?
   accounts         Account[]
   profile          Profile?
 
@@ -21,15 +21,15 @@ model User {
 }
 
 model Account {
-  id         Int      @id @default(autoincrement())
-  balance    Float
-  user       User     @relation(fields: [userId], references: [id])
-  userId     Int
-  accountNumber String
+  id               Int       @id @default(autoincrement())
+  balance          Float
+  user             User      @relation(fields: [userId], references: [id])
+  userId           Int
+  accountNumber    String
   transactionsFrom Transaction[] @relation(name: "FromAccount")
   transactionsTo   Transaction[] @relation(name: "ToAccount")
 
-  @@map("accounts") 
+  @@map("accounts")
 }
 
 model Profile {
@@ -38,7 +38,7 @@ model Profile {
   user    User   @relation(fields: [userId], references: [id])
   userId  Int    @unique
 
-  @@map("profiles") 
+  @@map("profiles")
 }
 
 model Transaction {
@@ -49,7 +49,7 @@ model Transaction {
   to            Account  @relation(name: "ToAccount", fields: [toAccountId], references: [id])
   toAccountId   Int
 
-  @@map("transactions") 
+  @@map("transactions")
 }
 
 model Image {
@@ -59,5 +59,5 @@ model Image {
   url         String
   createdAt   DateTime @default(now())
 
-  @@map("image") 
+  @@map("image")
 }
