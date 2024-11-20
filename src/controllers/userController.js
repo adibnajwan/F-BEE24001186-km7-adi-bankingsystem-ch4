@@ -3,7 +3,7 @@ const userService = require("../services/userService");
 const { hashPassword } = require('../utils/authUtils');
 const { sendEmail } = require('../utils/sendEmail');
 
-const postUser = async (req, res) => {
+const postUser = async (req, res, io) => { 
   try {
     const { name, email, password, bio } = req.body;
     const hashedPassword = await hashPassword(password);
@@ -15,6 +15,8 @@ const postUser = async (req, res) => {
       bio,
     });
 
+    io.emit('user_created', { message: `Welcome ${name}!` });
+
     res.status(201).json({
       message: 'User created successfully',
       user: newUser,
@@ -24,6 +26,7 @@ const postUser = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
 
 const getAllUsers = async (req, res) => {
   try {
