@@ -25,8 +25,7 @@ const postUser = async (req, res, io) => {
     console.error('Error creating user:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-};
-
+}; 
 
 const getAllUsers = async (req, res) => {
   try {
@@ -88,7 +87,7 @@ const forgotPassword = async (req, res) => {
   }
 };
 
-const resetPassword = async (req, res) => {
+const resetPassword = async (req, res, io) => { 
   try {
     const { token, newPassword } = req.body;
 
@@ -101,9 +100,11 @@ const resetPassword = async (req, res) => {
 
     await userService.updateUser(user.id, {
       password: hashedPassword,
-      resetPasswordToken: null,   
-      resetTokenExpiry: null,    
+      resetPasswordToken: null,
+      resetTokenExpiry: null,
     });
+
+    io.emit('password_reset', { message: `Password reset successfully for ${user.email}` });
 
     res.status(200).json({ message: 'Password reset successfully.' });
   } catch (error) {
@@ -111,6 +112,7 @@ const resetPassword = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
 
 module.exports = {
   postUser,
